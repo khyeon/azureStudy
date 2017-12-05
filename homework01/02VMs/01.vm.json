@@ -41,7 +41,7 @@
         }
     },
     "variables": {
-        "netRGName":"khyeonNetRG",
+        "netRGName":"khyeonNetRG01",
         "subscriptionId":"[subscription().subscriptionId]"
     },
     "resources": [
