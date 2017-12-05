@@ -5,12 +5,18 @@
       "adminUserId": {
         "type": "string"
       },
-      "sshKeyData": {
+      "vaultResourceGroup" : {
+        "type": "string"
+      },
+      "vaultName" : {
+        "type": "string"
+      },
+      "secretName" : {
         "type": "string"
       }
   },
   "variables": {
-      "repoUri" : "https://raw.githubusercontent.com/khyeon/azureStudy/master/homework01/02VMs/"
+      "repoUri" : "https://raw.githubusercontent.com/khyeon/azureStudy/spWithVault/homework01/02VMs/"
   },
   "resources": [
       {
@@ -26,49 +32,18 @@
             "parameters": { 
               "vm_name":{"value": "vm0"},
               "adminUserId":{"value": "[parameters('adminUserId')]"},
-              "sshKeyData":{"value": "[parameters('sshKeyData')]"},
-              "nic_name":{"value": "vm0nic"},
-              "customData":{"value":"null"}
-            } 
+              "customData":{"value": "null"},
+              "sshKeyData":{
+                "reference" : {
+                  "keyVault" : {
+                      "id": "[resourceId(subscription().subscriptionId,  parameters('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', parameters('vaultName'))]"
+                  },
+                  "secretName": "[parameters('secretName')]"
+                }
+              },
+              "nic_name":{"value": "vm0nic"}
+            }
           }
-      },
-      {
-        "apiVersion": "2017-05-10", 
-        "name": "vm1", 
-        "type": "Microsoft.Resources/deployments", 
-        "properties": { 
-          "mode": "Incremental", 
-          "templateLink": {
-            "uri": "[concat(variables('repoUri'),'01.vm.json')]",
-            "contentVersion": "1.0.0.0"
-          }, 
-          "parameters": { 
-            "vm_name":{"value": "vm1"},
-            "adminUserId":{"value": "[parameters('adminUserId')]"},
-            "sshKeyData":{"value": "[parameters('sshKeyData')]"},
-            "nic_name":{"value": "vm1nic"},
-            "customData":{"value":"null"}
-          } 
-        }
-    },
-    {
-      "apiVersion": "2017-05-10", 
-      "name": "vm2", 
-      "type": "Microsoft.Resources/deployments", 
-      "properties": { 
-        "mode": "Incremental", 
-        "templateLink": {
-          "uri": "[concat(variables('repoUri'),'01.vm.json')]",
-          "contentVersion": "1.0.0.0"
-        }, 
-        "parameters": { 
-          "vm_name":{"value": "vm2"},
-          "adminUserId":{"value": "[parameters('adminUserId')]"},
-          "sshKeyData":{"value": "[parameters('sshKeyData')]"},
-          "nic_name":{"value": "vm2nic"},
-          "customData":{"value":"null"}
-        } 
       }
-    }
   ]
 }
