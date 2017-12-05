@@ -41,7 +41,7 @@
         }
     },
     "variables": {
-        "netRGName":"minschoNetRG",
+        "netRGName":"khyeonNetRG",
         "subscriptionId":"[subscription().subscriptionId]"
     },
     "resources": [
