@@ -1,6 +1,6 @@
 # File name : HelloDevOpsWorld.yml
 ---
-- hosts: ip0*
+- hosts: all
   tasks:
   - name: "Fact에서 가져온 것.."
     debug:

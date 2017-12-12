@@ -36,7 +36,7 @@ fi
 if [[ -z "$resourceGroupName" ]]; then
     echo "ResourceGroupName:"
     read resourceGroupName
-    [[ "${resourceGroupName:?}" ]]
+    [[ "${resourceGroupName:?넣어}" ]]
 fi
 
 if [[ -z "$deploymentName" ]]; then
